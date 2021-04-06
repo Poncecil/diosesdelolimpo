@@ -1,0 +1,601 @@
+
+/*menu pegajoso*/
+
+.menu{
+    position: fixed;                       /* hace que el menú esté en toda la página y que no desaparezca cuando se haga scroll*/
+    top:0;                                 /*hace que la ubicación del menú se posicione arriba*/
+}
+
+/*menu desplegable*/
+
+* {
+    margin:0px;                                         /*indica que no tendrá bordes y que el texto estará pegado a las lineas del contendor*/
+    padding: 0px;                                       /*indica que no tendrá bordes y que el texto estará pegado a las lineas del contendor*/
+}
+
+#header {
+    max-width: 500px;                                                                      /*un tamaño maximo en horizontal*/
+    margin:auto;                                                                           /*hace que se posicione en el centro*/
+    font-family:Arial, Helvetica, sans-serif;                                              /*fuente de la letra*/
+}
+
+ul, ol {
+    list-style:none;                                                                     /*anulamos los estilos predeterminados de las listas*/                                                             
+}
+
+.nav > li {
+    float:left;                                                 /*hace que los menus principales se coloquen en horizontal*/                                                         
+}
+
+.nav li a {
+    background-color:#D2D546;                            /*color de fondo*/
+    color:#000;                                          /*color de la letra*/
+    text-decoration:none;                                  /*anulamos los estilos predeterminados de los hipervinculos*/
+    padding: 10px 40px;                                    /*bordes horizontales y verticales de cada menu*/
+    display:block;                                         /*hace que el comportamiento del elemento sea como un bloque*/
+}
+
+.nav li a:hover {
+    background-color:#D8D99B;                                  /*color para cada vez que se coloque el cursos encima*/
+}
+
+.nav li ul {
+    display:none;                                          /*ocultamos las listas que se van a desplegar*/
+    position:absolute;                                     /*hace que los elementos dentro del menú se posicionen a un costado de manera independiente y no abajo*/
+    min-width:140px;                                       /*anchura minima del elemento*/
+}
+
+.nav li:hover > ul {
+    display:block;                                        /*hace que el comportamiento del elemento sea como un bloque*/
+}
+
+.nav li ul li {
+    position:relative;                                             /*indica que la capa sí forma parte del flujo normal de elementos de la página*/
+}
+
+.nav li ul li ul {
+    right:-140px;                                       /*hace que los hipervinculos terciarios se coloquen a la derecha y no encima de los hipervinculos secundarios*/
+    top:0px;                                            /*hace que os hipervinculos terciarios se coloquen en paralelo y no dejando espacios*/
+}
+
+
+/*estilos de inicio*/
+
+                                                /*flex box*/
+.infoslider {                                                     /*efectos de flex box para centar los textos del div*/
+	color: #000;                                                /*color de la letra*/
+    font-size: large;                                             /*tamaño de la letra*/
+	display: flex;                                                /*alterar las dimensiones y llena los espacios disponibles*/
+	flex-direction: column;                                       /*especifica cómo colocar los objetos flexibles en el contenedor*/
+	justify-content: center;                                      /*para alinear los ítems del eje principal horizontal*/
+	align-items: center;                                          /*alinea nuestro artículo en el eje transversal*/
+}
+
+.mydiv {
+	position: relative;                                           /*indica que la capa sí forma parte del flujo normal de elementos de la página*/
+	margin: 5% auto 0;                                            /*distancia entre el inicio de pagina y texto de  la pagina inicio*/
+	width: 90%;                                                   /*tamaño del bloque en horizontal*/
+	height: 200px;                                                /*tamaño del bloque en vertical*/
+    background-color: white;                                    /*crea un margen de fondo donde va la letra*/
+}
+
+.animate-bg:before, .animate-bg:after {
+	content: '';                                                                              /*se hace que el contenedor sea visible*/
+	position: absolute;                                                                       /*se hace que el contenedor sea visible*/
+	left: -8px;                                                                               /*tamaño de espacio de izquierda*/
+	top: -8px;                                                                                /*tamaño de espacio arriba*/
+	background: linear-gradient(120deg, #79fb00, #8d01a0, #031ba5,#ff004c,  
+	#e6036d, #fb0094,#ff6600, #04c2e4,#adad02, #00c3ff);                         /*tiempo y lista de colores para los bordes*/
+	background-size: 300%;                                                                    /*especifica el tamaño de las imágenes de fondo*/
+	width: calc(100% + 16px);                                                                 /*expreción matematica para el ancho*/
+	height: calc(100% + 16px);                                                                /*expresión matematica para el alto*/
+	z-index: -1;                                                                              /*determina el nivel o capa en la que se muestra un elemento*/
+	animation: BGgradient 15s ease infinite;                                                  /*gradientes img*/
+}
+
+@keyframes BGgradient {
+	0% {
+		background-position: 0% 200%;
+	}
+	50% {
+		background-position: 200% 0%;
+	}
+	100% {
+		background-position: 0% 330%;
+	}
+}
+
+.animate-bg:after {
+	filter: blur(15px);                                              /*efecto sombra a los bordes dependiendo del color*/
+}
+
+
+                                       /*slider*/
+.container{
+margin: auto;                                                  /*se alinea al centro*/
+background-color: white;                                     /*color de fondo*/
+width: 800px;                                                  /*medidas del contenido*/
+padding: 30px;                                                 /*medida del margen de la etiqueta*/
+}
+                                      
+ul.slider{                                            /*estilos para la etiqueta ul que contenga la lista de imagenes*/                                    
+width: 800px;                                         /*tamaño horizontal del contenedor*/
+height: 300px;                                        /*tamaño vertical del contenedor*/
+}
+                                      
+ul.slider li {
+position: absolute;                                            /*hace que todos los elementos estén uno encima de otro*/
+opacity: 0;                                                    /*hace que los elementos se oculten*/
+width: inherit;                                                /*se agrega el tamaño que tiene el padre en horizontal*/
+height: inherit;                                               /*se agrega el tamaño que tiene el padre en vertical*/
+transition: opacity .5s;                                       /*al momento de hacer transiciones lo haga de manera fluida y no de golpe*/
+background:#fff;                                             /*color para el fondo*/                
+}
+                                      
+ul.slider li img{
+width: 100%;                                                   /*que ocupe el total del tamaño en horizontal del elemento padre*/
+height: 300px;                                                 /*tamaño que ocupará cada imagen*/
+}
+                                      
+ul.slider li:first-child {
+opacity: 1;                                                     /*Mostramos el primer <li>*/
+}
+                                      
+ul.slider li:target {
+opacity: 1;                                                     /*Mostramos el <li> del enlace que pulsemos*/
+}
+                                      
+.pumk{
+text-align: center;                                             /*alineamos el texto*/
+margin: 20px;                                                   /*el margen del texto*/
+}
+                                      
+.pumk li{                                                             /*estilos para las listas en general*/
+display: inline-block;                                                /*hace que las listas se ordenen de manera horizontal*/
+text-align: center;                                                   /*el texto lo ubicamos en el centro*/
+}
+                                      
+.pumk li a{                                                           /*estilos aplicados en las lista para los botones*/
+display: inline-block;                                                /*hace que las listas se ordenen de manera horizontal respetando el espacio y no se ponga uno encima de otro*/
+color: white;                                                       /*color de la letra*/
+text-decoration: none;                                                /*anulamos las propiedades predeterminadas del ul*/
+background-color: grey;                                             /*color de fondo*/
+padding: 10px;                                                        /*medida que encierra a cada etiqueta de ul*/
+width: 20px;                                                          /*tamaño en horizontal*/
+height: 20px;                                                         /*tamaño en vertical*/
+font-size: 20px;                                                      /*dimensión de la letra*/
+border-radius: 100%;                                                  /*hace que los bordes del cuadro sean redondeados*/
+}
+
+
+/*estilos de dioses*/
+
+.contzeus{
+
+    margin: 0;                                        /*establece el margen para los 4 lados en la pagina*/
+    padding: 0;                                       /*establece el espacio de relleno requerido por todos los lados de un elemento.*/
+    justify-content: space-between;                   /*para alinear los ítems del eje principal horizontal: los elementos están distribuidos uniformemente: al principio, centro y final del contenedor*/
+    display: flex;                                    /*alterar las dimensiones y llena los espacios disponibles*/
+}
+
+.izquierdazeus{
+    background: #E8F8F5;                              /*color de fondo*/
+    height: 90vh;                                       /*tamaño de la pagina visualizada*/
+    width: 50%;                                         /*tamaño del bloque en horizontal*/
+}
+
+.derechazeus{
+    background-color: #FEF9E7;                        /*color de fondo*/
+    height: 90vh;                                       /*tamaño de la pagina visualizada*/
+    width: 50%;                                         /*tamaño del bloque en horizontal*/
+    margin: 0px;                                        /*margenes de la pagina*/
+}
+
+.conthera{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdahera{
+    background: #FEF9E7;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechahera{
+    background-color: #E8F8F5;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.contartemisa{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdaartemisa{
+    background: #E8F8F5;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechaartemisa{
+    background-color: #FEF9E7;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.contatenea{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdaatenea{
+    background: #FEF9E7;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechaatenea{
+    background-color: #E8F8F5;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.contafrodita{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdaafrodita{
+    background: #E8F8F5;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechaafrodita{
+    background-color: #FEF9E7;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.contdemeter{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdademeter{
+    background: #FEF9E7;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechademeter{
+    background-color: #E8F8F5;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.contapolo{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdaapolo{
+    background: #E8F8F5;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechaapolo{
+    background-color: #FEF9E7;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.conthestia{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdahestia{
+    background: #FEF9E7;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechahestia{
+    background-color: #E8F8F5;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.conthermes{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdahermes{
+    background: #E8F8F5;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechahermes{
+    background-color: #FEF9E7;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.contares{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdaares{
+    background: #FEF9E7;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechaares{
+    background-color: #E8F8F5;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.contposeidon{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdaposeidon{
+    background: #E8F8F5;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechaposeidon{
+    background-color: #FEF9E7;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.contdionisios{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdadionisios{
+    background: #FEF9E7;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechadionisios{
+    background-color: #E8F8F5;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.conthades{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdahades{
+    background: #E8F8F5;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechahades{
+    background-color: #FEF9E7;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.contninfas{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdaninfas{
+    background: #FEF9E7;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechaninfas{
+    background-color: #E8F8F5;
+    justify-content: space-between;
+    width: 50%;
+    height: 90vh;
+}
+
+.conthercules{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdahercules{
+    background: #E8F8F5;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechahercules{
+    background-color: #FEF9E7;
+    width: 50%;
+    height: 90vh;
+}
+
+
+/*estilos de literatura*/
+
+.konojamaru{
+    background-color: #F7F6CC;                     /*color que le estoy asignando a toda la sección*/
+}
+
+.homero{
+    font-size: large;                                 /*asignamos un tamaño más grande a la letra*/
+    width: 900px;                                     /*le damos una medida para la etiqueta div de manera horizontal*/
+    margin: auto;                                     /*centra la etiqueta div*/
+}
+
+.homero img{
+    float: right;                                     /*hacemos que la imagenes se coloque al costado derecho del texto*/
+}
+
+.libros{ 
+    margin: auto;                                     /*centra la etiqueta div*/
+    width: 900px;                                     /*le damos una medida para la etiqueta div de manera horizontal*/
+    display: flex;                                    /*la caja se coloca una al lado del otra*/
+    text-align: center;                               /*texto lo colocamos al centro*/
+    justify-content: space-between;                   /*los contenedores se colcan ambos en el centro*/
+    font-size: 20px;                                  /*tamaño de la letra*/
+    height: 200px;                                    /*asignamos un tamaño en vertical al contenedor*/
+} 
+
+.libros a{
+    text-decoration: none;                             /*eliminamos el subrayado del hipervinculo*/
+    height: 50px;                                       /*dimención del contenedor*/
+}
+
+.bookiliada, .bookodisea{
+    width: 50%;                                        /*tamaño del bloque en horizontal*/
+    border: blue 5px double;                         /*margen para contenedor*/
+    width: 300px;                                      /*tamaño de cada uno de los contenedores*/
+    
+}
+
+
+/*estilos de contacto*/
+                                                /*furmularios*/
+.contcontac{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierdacontac{
+    background: #FEF9E7;
+    height: 90vh;
+    width: 50%;
+}
+
+.derechacontact{
+    background-color: #E8F8F5;
+    width: 50%;
+    height: 90vh;
+}
+
+.fieldcontain{
+  width: 400px;                                                     /*ancho de la etiqueta de formulario*/
+  background-color: #e4e7d6;                                      /*color de fondo del formulario*/
+  padding: 40px;                                                    /*bordes para de la caja de formulario*/                             
+  margin: auto;                                                     /*hace que la caja se posicione en el centro*/
+  margin-top: 35px;                                                 /*altura entre la parte superior del contenedor y donde empieza el formulario*/
+  border-radius: 10px;                                              /*esquinas de la caja de formulario*/
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;     /*tipo de letra*/
+}
+
+.fieldcontain h3{
+    font-size: 22px;                                                /*tamaño de la fuente*/
+    margin-bottom: 20px;                                            /*medida para el espacio de abajo de la letra*/
+}
+
+.controls{
+    width: 100%;                                                             /*ancho de los <input>*/
+    padding: 10px;                                                           /*ancho para los bordes de las etiquetas input*/
+    border-radius: 4px;                                                      /*esquinas de la caja de formulario*/                          
+    margin-bottom: 16px;                                                     /*espacio que se le atribuye a cada <input>*/
+    border: 1px solid #1f53c5;                                             /*marco para cada <input>*/
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;           /*tipo de letra*/
+    font-size: 18px;                                                         /*tamaño de la fuente*/
+}
+
+.fieldcontain p{
+    height: 30px;                                                                       /*espacio debajo del párrafo*/           
+    text-align: center;                                                                 /*texto al centro*/
+    font-size: 18px;                                                                    /*tamaño de la fuente de letra*/
+}
+
+.fieldcontain a{
+    color: #000;                                                                          /*color de la fuente*/
+    text-decoration: none;                                                                  /*elimanos las marcas de los links*/
+}
+
+.fieldcontain a:hover{
+    color: black;                                                                       /*color cuando está el mouse encima*/
+    text-decoration: underline;                                                           /*se subraya*/
+}
+
+.fieldcontain .botons{
+    width: 100%;                                                                          /*ocupara todo el espacio posible*/
+    background: #a6b6da;                                                                /*color*/
+    border: none;                                                                         /*anulamos el borde predeterminado el botón*/
+    padding: 12px;                                                                        /*agregamos un espacio a todos los bordes del input*/
+    font-size: 16px;                                                                      /*tamaño de la letra*/
+}
+
+/*comentarios*/
+
+.ssuke{
+    margin-top: 60px;                                               /*altura entre la parte superior del contenedor y donde empieza los comentarios*/
+    margin-bottom: 5px;                                             /*espacio para la parte de abajo*/
+    margin-left: 90px;                                              /*espacio para la parte derecha*/
+    width: 500px;                                                   /*ancho*/
+    height: 200px;                                                  /*alto*/
+    resize: none;                                                   /*la caja de texto queda estática para que el usuario no pueda moverla*/
+    
+}
+
+.divssuke .botonssuke{
+    margin-left: 515px;                                                /*espacio para la parte derecha*/
+    font-size: 15px;                                                   /*tamaño de la fuente*/
+    background: #e6e66a;                                             /*color de la caja*/
+    border: none;                                                      /*quitamos los bordes de la caja*/
+    padding: 5px;                                                      /*añadimos un pequeño espacio a los 4 lados del boton*/
+}
